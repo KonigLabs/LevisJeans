@@ -241,6 +241,22 @@
     <Content Include="Content\Images\left-3.jpg" />
     <Content Include="Content\Images\left-4.jpg" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\Phrases\dddd.png" />
+    <Content Include="Content\Images\Phrases\dddn.png" />
+    <Content Include="Content\Images\Phrases\ddnd.png" />
+    <Content Include="Content\Images\Phrases\ddnn.png" />
+    <Content Include="Content\Images\Phrases\dndd.png" />
+    <Content Include="Content\Images\Phrases\dndn.png" />
+    <Content Include="Content\Images\Phrases\dnnd.png" />
+    <Content Include="Content\Images\Phrases\dnnn.png" />
+    <Content Include="Content\Images\Phrases\nddd.png" />
+    <Content Include="Content\Images\Phrases\nddn.png" />
+    <Content Include="Content\Images\Phrases\ndnd.png" />
+    <Content Include="Content\Images\Phrases\ndnn.png" />
+    <Content Include="Content\Images\Phrases\nndd.png" />
+    <Content Include="Content\Images\Phrases\nndn.png" />
+    <Content Include="Content\Images\Phrases\nnnd.png" />
+    <Content Include="Content\Images\Phrases\nnnn.png" />
     <Content Include="Content\Images\right-1.jpg" />
     <Content Include="Content\Images\right-2.jpg" />
     <Content Include="Content\Images\right-3.jpg" />
@@ -287,6 +303,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Home\Image.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

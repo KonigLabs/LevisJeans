@@ -74,6 +74,7 @@ p.terms {
 p.terms span {
     font-size: 15px;
     cursor: pointer;
+    text-decoration: underline;
 }
 
 [type="submit"].form-btn  {
@@ -380,8 +381,8 @@ ul.pagination  li strong{
 [type="checkbox"]:checked + label:before {
   content: '';
   position: absolute;
-  left:2px; top: 2px;
-  width: 15px; height: 15px;
+  left:-4px; top: -4px;
+  width: 23px; height: 23px;
   border: 1px solid #fff;
   background: transparent;
   box-shadow: none;
@@ -392,7 +393,7 @@ ul.pagination  li strong{
 [type="checkbox"]:checked + label:after {
   content: '✔';
   position: absolute;
-  top: 2px; left: 4px;
+  top: 2px; left: 1px;
   font-size: 18px;
   line-height: 0.8;
   color: #fff;

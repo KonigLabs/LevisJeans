@@ -85,5 +85,18 @@ namespace KonigLabs.LevisJeans.Services
                 $"{parts[3]} и {parts[0]}",
             };
         }
+
+        public string GetStrAns(int customerId)
+        {
+            var entity = _dataContext.GetQuery<Test>().FirstOrDefault(p => p.Id == customerId);
+
+            if (entity == null)
+                return null;
+
+            return (entity.Answer1 ? "d" : "n") +
+                   (entity.Answer2 ? "d" : "n") +
+                   (entity.Answer3 ? "d" : "n") +
+                   (entity.Answer4 ? "d" : "n");
+        }
     }
 }

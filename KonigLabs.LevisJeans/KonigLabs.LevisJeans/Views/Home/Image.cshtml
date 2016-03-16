@@ -1,0 +1,31 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Levis</title>
+    <link rel="image_src" href="http://37.228.91.148:8117/Content/Images/@(ViewBag.Img)">
+    <meta property="og:image" content="http://37.228.91.148:8117/Content/Images/Phrases/@(ViewBag.Img)"/>
+    <meta property="og:title" content="Levis"/>
+    <meta property="og:description" content="@ViewBag.Phrase"/>
+    <meta name="description" content=" " />
+    <meta name="keywords" content=" " />
+    <meta name="author" content="KonigLabs" />
+</head>
+<body>
+    <img src="../../Content/Images/Phrases/@ViewBag.Img"/>
+    <script>
+        setTimeout(function() {
+            window.location = 'http://www.levi.com/RU/ru_RU/';
+        }, 50);
+    </script>
+</body>
+</html>

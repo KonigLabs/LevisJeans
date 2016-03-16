@@ -47,7 +47,7 @@ namespace KonigLabs.LevisJeans.Controllers
             if (model.Answer1.HasValue && model.Answer2.HasValue && model.Answer3.HasValue && model.Answer4.HasValue)
             {
                 _testSrv.SaveTest(model);
-                return Redirect($"/Home/Welldone?customerId={model.CustomerId}");
+                return Redirect($"/Home/Share?customerId={model.CustomerId}");
             }
             else if (model.Answer1.HasValue && model.Answer2.HasValue && model.Answer3.HasValue)
             {
@@ -67,31 +67,107 @@ namespace KonigLabs.LevisJeans.Controllers
             }
         }
 
-        public ActionResult Welldone(int customerId)
+        //public ActionResult Welldone(int customerId)
+        //{
+        //    var model = new ChoosePhraseVm
+        //    {
+        //        CustomerId = customerId,
+        //        Phrases = _testSrv.GetPhrases(customerId)
+        //    };
+        //    return View(model);
+        //}
+
+        //[HttpPost]
+        //public JsonResult Welldone(ChoosePhraseVm model)
+        //{
+        //    _testSrv.AddPhrase(model);
+        //    return new JsonResult {Data = new {Success = true}};
+        //}
+
+        public ActionResult Share(int customerId)
         {
-            var model = new ChoosePhraseVm
+            var model = new ShareVm
             {
                 CustomerId = customerId,
-                Phrases = _testSrv.GetPhrases(customerId)
+                Img = _testSrv.GetStrAns(customerId)
             };
+            model.Phrase = GetPhrase(model.Img);
             return View(model);
-        }
-
-        [HttpPost]
-        public JsonResult Welldone(ChoosePhraseVm model)
-        {
-            _testSrv.AddPhrase(model);
-            return new JsonResult {Data = new {Success = true}};
-        }
-
-        public ActionResult Share(int? customerId)
-        {
-            return View();
         }
 
         public ActionResult Thanks()
         {
             return View();
+        }
+
+        public ActionResult Image(string id)
+        {
+            var phrase = GetPhrase(id);
+            if (phrase == null)
+                return null;
+
+            ViewBag.Phrase = phrase;
+            ViewBag.Img = id + ".png";
+            return View();
+        }
+
+        private static string GetPhrase(string img)
+        {
+            string phrase;
+            switch (img)
+            {
+                case "dddd":
+                    phrase = "Сам подворот не подвернётся, и глажу все, что под руку попадётся.";
+                    break;
+                case "dddn":
+                    phrase = "Сам подворот не подвернётся, и заправляю даже кровать.";
+                    break;
+                case "ddnd":
+                    phrase = "Не глажу даже котиков, и ремень пристёгиваю даже в машине.";
+                    break;
+                case "ddnn":
+                    phrase = "Ремней боюсь ещё с детства, и заправляю даже кровать.";
+                    break;
+                case "dndd":
+                    phrase = "Сам подворот не подвернётся, и ремень пристёгиваю даже в машине.";
+                    break;
+                case "dndn":
+                    phrase = "Заправляю салаты, а не рубашки, и глажу все, что под руку попадётся.";
+                    break;
+                case "dnnd":
+                    phrase = "Сам подворот не подвернётся, и заправляю салаты, а не рубашки.";
+                    break;
+                case "dnnn":
+                    phrase = "Заправляю салаты, а не рубашки, и не глажу даже котиков.";
+                    break;
+                case "nddd":
+                    phrase = "Глажу все, что под руку попадётся, и заправляю даже кровать.";
+                    break;
+                case "nddn":
+                    phrase = "Лучше ногу подверну, чем джинсы, и заправляю даже кровать.";
+                    break;
+                case "ndnd":
+                    phrase = "Заправляю даже кровать, и лучше ногу подверну, чем джинсы.";
+                    break;
+                case "ndnn":
+                    phrase = "Не глажу даже котиков, и ремней боюсь еще с детства.";
+                    break;
+                case "nndd":
+                    phrase = "Глажу все, что под руку попадётся, и заправляю салаты, а не рубашки.";
+                    break;
+                case "nndn":
+                    phrase = "Лучше ногу подверну, чем джинсы, и ремней боюсь еще с детства.";
+                    break;
+                case "nnnd":
+                    phrase = "Не глажу даже котиков, и лучше ногу подверну, чем джинсы.";
+                    break;
+                case "nnnn":
+                    phrase = "Лучше ногу подверну, чем джинсы, и не глажу даже котиков.";
+                    break;
+                default:
+                    return null;
+            }
+            return phrase;
         }
     }
 }

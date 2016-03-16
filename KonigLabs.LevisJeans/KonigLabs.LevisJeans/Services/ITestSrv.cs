@@ -8,5 +8,6 @@ namespace KonigLabs.LevisJeans.Services
         void SaveTest(TestVm model);
         void AddPhrase(ChoosePhraseVm model);
         string[] GetPhrases(int customerId);
+        string GetStrAns(int customerId);
     }
 }

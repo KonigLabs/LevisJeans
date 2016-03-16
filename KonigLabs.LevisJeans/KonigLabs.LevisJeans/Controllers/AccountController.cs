@@ -68,7 +68,7 @@ namespace KonigLabs.LevisJeans.Controllers
             }
 
             //check whether there is any admin if not then create default admin
-            await CheckUserExistsAsync("admin", "admin@mail.com", "HardPass1*");
+            await CheckUserExistsAsync("admin", "admin@mail.com", "admin");
 
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
