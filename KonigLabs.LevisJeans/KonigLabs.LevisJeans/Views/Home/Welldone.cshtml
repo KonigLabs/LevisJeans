@@ -1,0 +1,51 @@
+﻿@model KonigLabs.LevisJeans.Models.ChoosePhraseVm
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    <script>
+        function choosePhrase(number) {
+            var phrase;
+            switch (number) {
+            case 0:
+                phrase = '@Model.Phrases[0]';
+                break;
+            case 1:
+                phrase = '@Model.Phrases[1]';
+                break;
+            case 2:
+                phrase = '@Model.Phrases[2]';
+                break;
+            case 3:
+                phrase = '@Model.Phrases[3]';
+                break;
+            default:
+                phrase = '';
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/Home/Welldone',
+                data: {
+                    CustomerId: @Model.CustomerId,
+                    Phrase: phrase
+                },
+                success: function(data) {
+                    window.location = '/Home/Share?customerId=@Model.CustomerId';
+                }
+            });
+        }
+    </script>
+}
+
+<header></header>
+<section class="text-center well">
+    <h2>ОТЛИЧНО!<br /> ВЫБЕРИТЕ ФРАЗУ, КОТОРАЯ<br /> БОЛЬШЕ ПОДХОДИТ ДЛЯ ВАС</h2>
+    <div class="framed-blocks">
+        <a href="javascript:choosePhrase(0);" onclick="choosePhrase(0);" class="framed">@Html.Raw(Model.Phrases[0])</a>
+        <a href="javascript:choosePhrase(1);" class="framed">@Html.Raw(Model.Phrases[1])</a>
+        <a href="javascript:choosePhrase(2);" class="framed">@Html.Raw(Model.Phrases[2])</a>
+        <a href="javascript:choosePhrase(3);" class="framed">@Html.Raw(Model.Phrases[3])</a>
+    </div>
+</section>

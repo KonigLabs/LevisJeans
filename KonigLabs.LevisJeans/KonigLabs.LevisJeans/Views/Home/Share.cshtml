@@ -1,0 +1,15 @@
+﻿@model KonigLabs.LevisJeans.Models.ShareVm
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header></header>
+<section class="text-center">
+    <h2 class="number">ПОДЕЛИТЬСЯ РЕЗУЛЬТАТОМ<br /> В СОЦИАЛЬНОЙ СЕТИ</h2>
+    <a href="" class="content share vk"></a>
+    <a href="" class="content share fb"></a>
+    <p class="noshare">
+        <a href="@Url.Action("Thanks", "Home")" class="btn">Не хочу делиться</a>
+    </p>
+</section>

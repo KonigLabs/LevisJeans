@@ -1,0 +1,28 @@
+﻿@model KonigLabs.LevisJeans.Models.TestVm
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header></header>
+<section class="question">
+    <h2><span>3</span>Гладить джинсы<br /> или нет?</h2>
+</section>
+<ul class="pagination">
+    <li><span>1</span><strong>Подворачивать<br /> джинсы или нет</strong></li>
+    <li><span>2</span><strong>Заправлять рубашку<br /> или нет</strong></li>
+    <li class="active"><span>3</span><strong>Гладить джинсы<br /> или нет</strong></li>
+    <li><span>4</span></li>
+</ul>
+<div class="left-side test-3">
+    @{
+        Model.Answer3 = true;
+    }
+    <a href="@Url.Action("Test", "Home", Model)">Да</a>
+</div>
+<div class="right-side test-3">
+    @{
+        Model.Answer3 = false;
+    }
+    <a href="@Url.Action("Test", "Home", Model)">Нет</a>
+</div>

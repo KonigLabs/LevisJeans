@@ -1,0 +1,102 @@
+﻿@model IEnumerable<KonigLabs.LevisJeans.Models.CustomerAdminVm>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section scripts{
+    <script>
+        $('.btn-check').click(function() {
+            if ($(this).hasClass('btn-checked'))
+                checkCustomer(this, false);
+            else if ($(this).hasClass('btn-unchecked'))
+                checkCustomer(this, true);
+        });
+
+        function checkCustomer(btn, check) {
+            var id = $(btn).data('id');
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/Check',
+                data: {
+                    id: id,
+                    check: check
+                },
+                success: function(data) {
+                    if (data.Success === true) {
+                        toastr.info('Сохранено');
+                        if (check) {
+                            $(btn).removeClass('btn-unchecked');
+                            $(btn).addClass('btn-checked');
+                            $(btn).text('UnCheck');
+                        } else {
+                            $(btn).removeClass('btn-checked');
+                            $(btn).addClass('btn-unchecked');
+                            $(btn).text('Check');
+                        }
+                    } else
+                        toastr.warning(data.Message);
+                }
+            });
+        }
+
+        function totalErase() {
+            if (confirm("После удаления восстановить данные будет невозможно. Удалить все данные?")) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Admin/TotalErase',
+                    success: function(data) {
+                        if (data.Success === true) {
+                            toastr.info('Данные удалены');
+                            window.location = window.location;
+                        } else
+                            toastr.warning(data.Message);
+                    }
+                });
+            }
+        }
+    </script>
+}
+
+<div class="container">
+    <div class="row">
+        @if (ViewBag.Check)
+        {
+            <a class="btn btn-primary" href="/Admin/Index?check=false">Показать не отмеченные</a>
+        }
+        else
+        {
+            <a class="btn btn-primary" href="/Admin/Index?check=true">Показать отмеченные</a>
+        }
+        <div class="btn-group pull-right">
+            <a class="btn btn-success" href="/Admin/BackupToXml">Выгрузить в XML</a>
+            <button class="btn btn-danger" onclick="totalErase();">Стереть данные</button>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Отчество</th>
+                <th>Email</th>
+                <th>Телефон</th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.MiddleName</td>
+                <td>@item.Email</td>
+                <td>@item.Phone</td>
+                <td><span class="btn btn-sm btn-default btn-check @(item.Checked ? "btn-checked" : "btn-unchecked")" data-id="@item.Id">@(item.Checked ? "UnCheck" : "Check")</span></td>
+            </tr>
+        }
+    </table>
+</div>

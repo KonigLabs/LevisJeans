@@ -1,0 +1,17 @@
+﻿@using KonigLabs.LevisJeans.Models
+@model KonigLabs.LevisJeans.Models.NumberVm
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header></header>
+<section>
+    <h2 class="number">Ваш номер</h2>
+    <div class="content your-number">
+        <p>@Model.Id</p>
+    </div>
+    <p class="accept">
+        <a href="@Url.Action("Test", "Home", new TestVm {CustomerId = Model.Id})" class="btn">Ok</a>
+    </p>
+</section>
