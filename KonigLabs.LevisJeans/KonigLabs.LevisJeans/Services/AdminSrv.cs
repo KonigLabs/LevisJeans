@@ -64,6 +64,7 @@ namespace KonigLabs.LevisJeans.Services
         {
             _dataContext.RemoveAll("Tests");
             _dataContext.RemoveAll("Customers");
+            _dataContext.Reseed("Customers");
             return string.Empty;
         }
 

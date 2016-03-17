@@ -8,6 +8,7 @@ namespace KonigLabs.LevisJeans.Models.Contexts
         void Add<T>(T item) where T : class;
         void Remove<T>(T item) where T : class;
         void RemoveAll(string tableName);
+        void Reseed(string tableName);
         void Commit();
     }
 }

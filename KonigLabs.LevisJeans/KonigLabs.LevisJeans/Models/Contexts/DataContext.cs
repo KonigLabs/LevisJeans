@@ -32,6 +32,11 @@ namespace KonigLabs.LevisJeans.Models.Contexts
             _entities.Database.ExecuteSqlCommand($"delete from [dbo].[{tableName}];");
         }
 
+        public void Reseed(string tableName)
+        {
+            _entities.Database.ExecuteSqlCommand($"DBCC CHECKIDENT ([{tableName}], RESEED, 0)");
+        }
+
         public void Commit()
         {
             /*var modifiedOrAddedEntities = _entities.ChangeTracker.Entries()
