@@ -27,16 +27,14 @@
                         toastr.info('Сохранено');
                         if (check) {
                             $(btn).removeClass('btn-unchecked');
-                            $(btn).removeClass('btn-default');
                             $(btn).addClass('btn-checked');
-                            $(btn).addClass('btn-warning');
                             $(btn).text('UnCheck');
+                            $(btn).parents('tr').addClass('item-checked');
                         } else {
                             $(btn).removeClass('btn-checked');
-                            $(btn).removeClass('btn-warning');
                             $(btn).addClass('btn-unchecked');
-                            $(btn).addClass('btn-default');
                             $(btn).text('Check');
+                            $(btn).parents('tr').removeClass('item-checked');
                         }
                     } else
                         toastr.warning(data.Message);
@@ -62,6 +60,12 @@
     </script>
 }
 
+<style>
+    .item-checked {
+        background: rgba(15, 255, 0, 50) !important;
+    }
+</style>
+
 <div class="container">
     <div class="row">
         @if (ViewBag.Check)
@@ -73,7 +77,7 @@
             <a class="btn btn-primary" href="/Admin/Index?check=true">Показать отмеченные</a>
         }
         <div class="btn-group pull-right">
-            <a class="btn btn-success" href="/Admin/BackupToXml">Выгрузить в XML</a>
+            <a class="btn btn-success" href="/Admin/BackupToCsv">Выгрузить в CSV</a>
             <button class="btn btn-danger" onclick="totalErase();">Стереть данные</button>
         </div>
     </div>
@@ -92,14 +96,14 @@
         </thead>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr class="@(item.Checked ? "item-checked" : "")">
                 <td>@item.Id</td>
                 <td>@item.FirstName</td>
                 <td>@item.LastName</td>
                 <td>@item.MiddleName</td>
                 <td>@item.Email</td>
                 <td>@item.Phone</td>
-                <td><span class="btn btn-sm btn-check @(item.Checked ? "btn-checked btn-warning" : "btn-unchecked btn-default")" data-id="@item.Id">@(item.Checked ? "UnCheck" : "Check")</span></td>
+                <td><span class="btn btn-sm btn-default btn-check @(item.Checked ? "btn-checked" : "btn-unchecked")" data-id="@item.Id">@(item.Checked ? "UnCheck" : "Check")</span></td>
             </tr>
         }
     </table>

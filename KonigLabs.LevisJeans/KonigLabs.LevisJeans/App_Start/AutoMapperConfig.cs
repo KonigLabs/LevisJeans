@@ -12,6 +12,8 @@ namespace KonigLabs.LevisJeans
             {
                 cfg.CreateMap<Customer, CustomerVm>();
                 cfg.CreateMap<CustomerVm, Customer>();
+                cfg.CreateMap<Customer, CustomerAdminVm>();
+                cfg.CreateMap<CustomerAdminVm, Customer>();
                 cfg.CreateMap<CustomerVm, CustomerRedirectTermVm>();
                 cfg.CreateMap<CustomerRedirectTermVm, CustomerVm>();
                 cfg.CreateMap<Test, TestVm>();

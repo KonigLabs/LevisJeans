@@ -5,6 +5,8 @@ using System.Xml.Serialization;
 using KonigLabs.LevisJeans.Models;
 using KonigLabs.LevisJeans.Models.Contexts;
 using KonigLabs.LevisJeans.Models.Entities;
+using AutoMapper;
+using System.Text;
 
 namespace KonigLabs.LevisJeans.Services
 {
@@ -19,25 +21,11 @@ namespace KonigLabs.LevisJeans.Services
 
         public IEnumerable<CustomerAdminVm> GetCustomers(bool check = false)
         {
-            return from c in _dataContext.GetQuery<Customer>()
-                join t in _dataContext.GetQuery<Test>() on c.Id equals t.Id
-                where c.Checked == check && c.Phrase != string.Empty
-                orderby c.Id
-                select new CustomerAdminVm
-                {
-                    Id = c.Id,
-                    FirstName = c.FirstName,
-                    LastName = c.LastName,
-                    MiddleName = c.MiddleName,
-                    Email = c.Email,
-                    Phone = c.Phone,
-                    Phrase = c.Phrase,
-                    Checked = c.Checked,
-                    Answer1 = t.Answer1,
-                    Answer2 = t.Answer2,
-                    Answer3 = t.Answer3,
-                    Answer4 = t.Answer4
-                };
+            return Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerAdminVm>>(
+                _dataContext.GetQuery<Customer>()
+                    .Where(p => p.Checked == check && p.Phrase != string.Empty)
+                    .OrderBy(p => p.Id)
+                ).ToList();
         }
 
         public string Check(int id)
@@ -81,31 +69,29 @@ namespace KonigLabs.LevisJeans.Services
 
         public void Serialize(string path)
         {
-            var entities = (from c in _dataContext.GetQuery<Customer>()
-                join t in _dataContext.GetQuery<Test>() on c.Id equals t.Id
-                orderby c.Id
-                select new CustomerAdminVm
-                {
-                    Id = c.Id,
-                    FirstName = c.FirstName,
-                    LastName = c.LastName,
-                    MiddleName = c.MiddleName,
-                    Email = c.Email,
-                    Phone = c.Phone,
-                    Phrase = c.Phrase,
-                    Checked = c.Checked,
-                    Answer1 = t.Answer1,
-                    Answer2 = t.Answer2,
-                    Answer3 = t.Answer3,
-                    Answer4 = t.Answer4
-                }).ToList();
+            var entities = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerAdminVm>>(
+                _dataContext.GetQuery<Customer>()
+                    .Where(p => p.Phrase != string.Empty)
+                    .OrderBy(p => p.Id)
+                ).ToList();
 
-            var formatter = new XmlSerializer(typeof(List<CustomerAdminVm>));
-            
-            using (var fs = new FileStream(path, FileMode.OpenOrCreate))
+            var text = new StringBuilder("Номер,Имя,Фамилия,Отчество,Email,Телефон,Отмечен\n");
+            foreach (var item in entities)
             {
-                formatter.Serialize(fs, entities);
+                text.Append($"{item.Id},{Escape(item.FirstName)},{Escape(item.LastName)},{Escape(item.MiddleName)},{Escape(item.Email)},{Escape(item.Phone)},{(item.Checked ? "Да" : "Нет")}\n");
             }
+            
+            File.WriteAllText(path, text.ToString(), Encoding.UTF8);
+        }
+
+        private string Escape(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return string.Empty;
+            var tmp = str.Replace("\"", "\"\"");
+            if (tmp.Contains(","))
+                tmp = $"\"{tmp}\"";
+            return tmp;
         }
     }
 }

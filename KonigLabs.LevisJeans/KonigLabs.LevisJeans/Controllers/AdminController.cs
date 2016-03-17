@@ -35,11 +35,13 @@ namespace KonigLabs.LevisJeans.Controllers
             return new JsonResult { Data = new { Success = msg == string.Empty, Message = msg } };
         }
 
-        public FilePathResult BackupToXml()
+        public FileResult BackupToCsv()
         {
-            var path = Server.MapPath($"~/backup_{DateTime.Now.Ticks}.xml");
+            var fileName = $"backup_{DateTime.Now.ToString("yyyy.MM.dd_HH.mm")}.csv";
+            var path = Server.MapPath($"~/{fileName}");
             _adminSrv.Serialize(path);
-            return new FilePathResult(path, "text/xml");
+            byte[] fileBytes = System.IO.File.ReadAllBytes(path);
+            return File(fileBytes, @"text\csv", fileName);
         }
     }
 }
