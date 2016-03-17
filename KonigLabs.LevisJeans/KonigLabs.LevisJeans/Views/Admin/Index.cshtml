@@ -27,11 +27,15 @@
                         toastr.info('Сохранено');
                         if (check) {
                             $(btn).removeClass('btn-unchecked');
+                            $(btn).removeClass('btn-default');
                             $(btn).addClass('btn-checked');
+                            $(btn).addClass('btn-warning');
                             $(btn).text('UnCheck');
                         } else {
                             $(btn).removeClass('btn-checked');
+                            $(btn).removeClass('btn-warning');
                             $(btn).addClass('btn-unchecked');
+                            $(btn).addClass('btn-default');
                             $(btn).text('Check');
                         }
                     } else
@@ -95,7 +99,7 @@
                 <td>@item.MiddleName</td>
                 <td>@item.Email</td>
                 <td>@item.Phone</td>
-                <td><span class="btn btn-sm btn-default btn-check @(item.Checked ? "btn-checked" : "btn-unchecked")" data-id="@item.Id">@(item.Checked ? "UnCheck" : "Check")</span></td>
+                <td><span class="btn btn-sm btn-check @(item.Checked ? "btn-checked btn-warning" : "btn-unchecked btn-default")" data-id="@item.Id">@(item.Checked ? "UnCheck" : "Check")</span></td>
             </tr>
         }
     </table>
