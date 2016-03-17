@@ -4,6 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section scripts{
+    <script>
+        function shareVk() {
+            window.location = '/Home/Thanks';
+        }
+	    function shareFb() {
+            window.onfocus = function() {
+                window.open('https://facebook.com');
+                window.location = '/Home/Thanks';
+            };
+        }
+    </script>
+}
+
 <header></header>
 <section class="text-center">
     <h2 class="number">ПОДЕЛИТЬСЯ РЕЗУЛЬТАТОМ<br/> В СОЦИАЛЬНОЙ СЕТИ</h2>
