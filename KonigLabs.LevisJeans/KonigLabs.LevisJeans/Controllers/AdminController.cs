@@ -35,11 +35,14 @@ namespace KonigLabs.LevisJeans.Controllers
             return new JsonResult { Data = new { Success = msg == string.Empty, Message = msg } };
         }
 
-        public FileResult BackupToCsv()
+        public FileResult BackupToCsv(string separator = ";")
         {
+            if (separator != ";" && separator != ",")
+                separator = ";";
+
             var fileName = $"backup_{DateTime.Now.ToString("yyyy.MM.dd_HH.mm")}.csv";
             var path = Server.MapPath($"~/{fileName}");
-            _adminSrv.Serialize(path);
+            _adminSrv.Serialize(path, separator);
             byte[] fileBytes = System.IO.File.ReadAllBytes(path);
             return File(fileBytes, @"text\csv", fileName);
         }

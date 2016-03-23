@@ -9,6 +9,6 @@ namespace KonigLabs.LevisJeans.Services
         string Check(int id);
         string UnCheck(int id);
         string TotalErase();
-        void Serialize(string path);
+        void Serialize(string path, string separator);
     }
 }
