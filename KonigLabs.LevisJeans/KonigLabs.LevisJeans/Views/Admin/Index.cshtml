@@ -1,4 +1,4 @@
-﻿@model IEnumerable<KonigLabs.LevisJeans.Models.CustomerAdminVm>
+@model IEnumerable<KonigLabs.LevisJeans.Models.CustomerAdminVm>
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -12,7 +12,15 @@
             else if ($(this).hasClass('btn-unchecked'))
                 checkCustomer(this, true);
         });
-
+        
+        $('.btns-admin').hover(function() {
+            if ($('.btn-csv-en').hasClass('hidden'))
+                $('.btn-csv-en').removeClass('hidden');
+        }, function() {
+            if (!$('.btn-csv-en').hasClass('hidden'))
+                $('.btn-csv-en').addClass('hidden');
+        });
+        
         function checkCustomer(btn, check) {
             var id = $(btn).data('id');
             $.ajax({
@@ -76,8 +84,9 @@
         {
             <a class="btn btn-primary" href="/Admin/Index?check=true">Показать отмеченные</a>
         }
-        <div class="btn-group pull-right">
-            <a class="btn btn-success" href="/Admin/BackupToCsv">Выгрузить в CSV</a>
+        <div class="btn-group pull-right btns-admin">
+		    <a class="btn btn-success btn-csv-en hidden" href="/Admin/BackupToCsv?separator=," title="Скачать для английской локализации">Download CSV file</a>
+            <a class="btn btn-success" href="/Admin/BackupToCsv?separator=;" title="Скачать для русской локализации">Выгрузить в CSV</a>
             <button class="btn btn-danger" onclick="totalErase();">Стереть данные</button>
         </div>
     </div>
